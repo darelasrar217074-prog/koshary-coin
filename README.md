@@ -1,1 +1,1 @@
-![Koshary Coin Mascot](coshary_coinnnn/koshary-mascot-small.jpg)
+coshary_coinnnnn/images/koshary-mascot.png
