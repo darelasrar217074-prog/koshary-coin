@@ -1,0 +1,7 @@
+.exchange-icon {
+    transition: transform 0.3s ease;
+}
+
+.exchange-icon:hover {
+    transform: translateY(-10px);
+}
