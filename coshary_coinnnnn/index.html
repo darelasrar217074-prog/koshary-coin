@@ -16,7 +16,8 @@
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#presale">Presale</a></li>
+                <li><a class="nav-link scrollto" href="#presale">Presale</a></li>
+                <li><a class="nav-link scrollto" href="airdrop.html">Airdrop</a></li>
                 <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#whitepaper">Whitepaper</a></li>
@@ -174,6 +175,27 @@
                 </div>
             </div>
         </footer>
+
+        <div id="vanta-fog"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+        <script>
+            VANTA.FOG({
+                el: "#vanta-fog",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                highlightColor: 0xff6600,
+                midtoneColor: 0xff3300,
+                lowlightColor: 0x990000,
+                baseColor: 0x0,
+                blurFactor: 0.50,
+                speed: 1.50
+            })
+        </script>
 
         <script src="script.js"></script>
     </body>
