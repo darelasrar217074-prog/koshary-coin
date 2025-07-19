@@ -9,6 +9,42 @@
     --highlight-color: #FFA500;
 }
 
+/* VANTA.js Fog Effect Styles */
+#vanta-fog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* تنسيق رابط Airdrop في القائمة */
+nav ul li a[href="airdrop.html"] {
+    color: #FFA500 !important;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: rgba(255, 165, 0, 0.2);
+    border: 2px solid #FFA500;
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+    animation: pulse 2s infinite;
+    transition: all 0.3s ease;
+}
+
+nav ul li a[href="airdrop.html"]:hover {
+    background-color: rgba(255, 165, 0, 0.3);
+    transform: scale(1.05);
+}
+
+ /* تنسيق زر View Leaderboard */
+
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 165, 0, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 165, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 165, 0, 0); }
+}
 * {
     margin: 0;
     padding: 0;
@@ -704,11 +740,22 @@ footer {
     }
 }
 
-/* Countdown Timer */
+/* Countdown Timer Styles */
 .countdown-container {
-    padding: 3rem 5%;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 1.5em; /* Adjust as needed */
+    font-weight: bold;
+    color: var(--primary-color); /* Use your primary color for visibility */
+    text-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+}
+
+.countdown-container #countdown {
+    font-size: 1.8em; /* Make the actual countdown numbers even larger */
+    color: var(--text-color); /* Or a contrasting color */
+    display: block;
+    margin-top: 10px;
 }
 
 .countdown-container h3 {
@@ -1033,4 +1080,181 @@ footer {
     background: #FF8C00;
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Airdrop Section Styles */
+.airdrop-section {
+    padding: 80px 0;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+}
+
+.airdrop-section .section-title h2 {
+    color: var(--primary-color);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.airdrop-section .section-title p {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.airdrop-form {
+    background-color: rgba(42, 26, 71, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+}
+
+.airdrop-form h3 {
+    color: var(--primary-color);
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.airdrop-form p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.airdrop-form .form-group {
+    margin-bottom: 20px;
+}
+
+.airdrop-form .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.airdrop-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.airdrop-form .social-links {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.airdrop-form .social-links a {
+    /* display: inline-block;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+    margin: 0 8px; */
+    transition: all 0.3s ease;
+}
+
+.airdrop-form .social-links a:hover {
+    background-color: #FF8C00;
+    transform: translateY(-3px);
+}
+
+.airdrop-form button[type="submit"],
+.airdrop-form .btn-leaderboard {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.airdrop-form button[type="submit"]:hover,
+.airdrop-form .btn-leaderboard:hover {
+    background-color: #FF8C00;
+    transform: scale(1.05);
+}
+
+/* Leaderboard Section */
+.airdrop-leaderboard {
+    background-color: rgba(30, 14, 58, 0.8); /* Slightly darker, more opaque background */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    text-align: center;
+}
+
+.airdrop-leaderboard h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Space between rows */
+    margin-top: 20px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px; /* Rounded corners for cells */
+}
+
+.leaderboard-table th {
+    background-color: #3a2a5a; /* Softer dark purple for header */
+    color: #e0e0e0; /* Lighter text for header */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.leaderboard-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.leaderboard-table tbody tr:nth-child(odd) {
+    background-color: #2a1a47; /* Darker shade for odd rows */
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+    background-color: #1e0e3a; /* Even darker shade for even rows */
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: rgba(255, 165, 0, 0.15); /* Softer hover effect with primary color */
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard-table td {
+    color: #cccccc; /* Softer text color for cells */
+    font-size: 0.95rem;
+}
+
+.leaderboard-table td:first-child {
+    font-weight: bold;
+    color: var(--highlight-color); /* Highlight rank */
+}
+
+/* Specific styles for Telegram and Twitter usernames */
+.leaderboard-table td.telegram-username::before {
+    content: '@';
+}
+
+.leaderboard-table td.twitter-username::before {
+    content: '@';
 }
