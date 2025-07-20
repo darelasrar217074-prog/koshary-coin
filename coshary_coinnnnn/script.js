@@ -117,76 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Airdrop Form Submission Handling
-    // Use a global array to store participants for demonstration purposes
-    // In a real application, this data would be stored in a database on a backend server.
-    let airdropParticipants = [];
-
-    // Load participants from localStorage if available (for persistence across sessions)
-    if (localStorage.getItem('airdropParticipants')) {
-        airdropParticipants = JSON.parse(localStorage.getItem('airdropParticipants'));
-        console.log('Loaded airdrop participants from localStorage:', airdropParticipants); // Debugging line
-    }
-
-    // Call updateLeaderboard on page load to display any existing data
-    updateLeaderboard(); // Add this line
-
-    const airdropForm = document.getElementById('airdropForm');
-    if (airdropForm) {
-        airdropForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-    
-            const walletAddress = document.getElementById('walletAddress').value;
-            const telegramUsername = document.getElementById('telegramUsername').value;
-            const referralCode = document.getElementById('referralCode').value; // Get referral code
-
-            // Basic validation
-            if (!walletAddress || !telegramUsername /* || !twitterUsername */) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            // Check for duplicate wallet address
-            const isDuplicate = airdropParticipants.some(participant => participant.address === walletAddress);
-            if (isDuplicate) {
-                alert('This wallet address has already participated in the airdrop.');
-                return;
-            }
-
-            let initialPoints = 5000; // Base points for participation
-            let bonusPoints = 0;
-
-            if (referralCode) {
-                // Find the referrer in the existing participants
-                const referrer = airdropParticipants.find(p => p.telegram === referralCode); // Assuming Telegram username is the referral ID
-                if (referrer) {
-                    bonusPoints = 2000; // Bonus for using a valid referral
-                    referrer.points += 2000; // Add bonus to referrer's points
-                    alert(`Referral bonus applied! ${referralCode} received 2000 bonus coins.`);
-                } else {
-                    alert('Invalid referral code. No bonus applied.');
-                }
-            }
-
-            // Add new participant to the array
-            const newParticipant = {
-                address: walletAddress,
-                telegram: telegramUsername,
-                referralUsed: referralCode || 'None',
-                points: initialPoints + bonusPoints, // Assign base points + bonus
-                registrationTime: new Date().toISOString()
-            };
-            airdropParticipants.push(newParticipant);
-
-            // Save updated participants to localStorage
-            localStorage.setItem('airdropParticipants', JSON.stringify(airdropParticipants));
-            console.log('Saved airdrop participants to localStorage:', airdropParticipants);
-
-            console.log('Airdrop Submission:', newParticipant);
-            alert('Airdrop submission successful! You will be notified of the next steps.');
-            airdropForm.reset();
-            updateLeaderboard(); // Update leaderboard after submission
-        });
-    }
+    // The following section for local storage and airdropParticipants array is removed
+    // as Firebase Firestore is now handling participant storage directly in airdrop.html.
 
     // Leaderboard functionality
     const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
@@ -196,26 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.airdrop-leaderboard').scrollIntoView({
                 behavior: 'smooth'
             });
-        });
-    }
-
-    function updateLeaderboard() {
-        const leaderboardList = document.getElementById('leaderboardList');
-        leaderboardList.innerHTML = ''; // Clear existing entries
-
-        // Sort participants by points in descending order
-        const sortedParticipants = [...airdropParticipants].sort((a, b) => b.points - a.points);
-
-        // Add new entries
-        sortedParticipants.forEach((participant, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${participant.address}</td>
-                <td>${participant.telegram}</td>
-                <td>5000 KSHR</td>
-            `;
-            leaderboardList.appendChild(row);
         });
     }
 });
@@ -297,61 +209,8 @@ if (claimTokensBtn) {
 }
 
 // Airdrop Form Submission Handling
-// Use a global array to store participants for demonstration purposes
-// In a real application, this data would be stored in a database on a backend server.
-let airdropParticipants = [];
-
-// Load participants from localStorage if available (for persistence across sessions)
-if (localStorage.getItem('airdropParticipants')) {
-    airdropParticipants = JSON.parse(localStorage.getItem('airdropParticipants'));
-    console.log('Loaded airdrop participants from localStorage:', airdropParticipants); // Debugging line
-}
-
-// Call updateLeaderboard on page load to display any existing data
-updateLeaderboard(); // Add this line
-
-const airdropForm = document.getElementById('airdropForm');
-if (airdropForm) {
-    airdropForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const walletAddress = document.getElementById('walletAddress').value;
-        const telegramUsername = document.getElementById('telegramUsername').value;
-        // const twitterUsername = document.getElementById('twitterUsername').value; // Removed Twitter field
-
-        // Basic validation
-        if (!walletAddress || !telegramUsername /* || !twitterUsername */) {
-            alert('Please fill in all fields.');
-            return;
-        }
-
-        // Check for duplicate wallet address
-        const isDuplicate = airdropParticipants.some(participant => participant.address === walletAddress);
-        if (isDuplicate) {
-            alert('This wallet address has already participated in the airdrop.');
-            return;
-        }
-
-        // Add new participant to the array
-        const newParticipant = {
-            address: walletAddress,
-            telegram: telegramUsername,
-            // twitter: twitterUsername, // Removed Twitter field
-            points: Math.floor(Math.random() * 1000) + 500, // Assign random points for demonstration
-            registrationTime: new Date().toISOString() // Add registration time
-        };
-        airdropParticipants.push(newParticipant);
-
-        // Save updated participants to localStorage
-        localStorage.setItem('airdropParticipants', JSON.stringify(airdropParticipants));
-        console.log('Saved airdrop participants to localStorage:', airdropParticipants); // Debugging line
-
-        console.log('Airdrop Submission:', newParticipant);
-        alert('Airdrop submission successful! You will be notified of the next steps.');
-        airdropForm.reset();
-        updateLeaderboard(); // Update leaderboard after submission
-    });
-}
+// The following section for local storage and airdropParticipants array is removed
+// as Firebase Firestore is now handling participant storage directly in airdrop.html.
 
 // Leaderboard functionality
 const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
