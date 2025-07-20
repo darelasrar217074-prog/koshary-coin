@@ -72,8 +72,16 @@
  
                 <script>
                   // Set deadline to 60 days from now
-                  var deadline = new Date();
-                  deadline.setDate(deadline.getDate() + 60);
+                  var deadline;
+                  var storedDeadline = localStorage.getItem('airdropDeadline');
+
+                  if (storedDeadline) {
+                    deadline = new Date(storedDeadline);
+                  } else {
+                    deadline = new Date();
+                    deadline.setDate(deadline.getDate() + 60);
+                    localStorage.setItem('airdropDeadline', deadline.toISOString());
+                  }
                   
                   var x = setInterval(function() {
                     var now = new Date().getTime();
@@ -95,6 +103,7 @@
                     <div class="col-lg-8 col-md-10">
                         <div class="airdrop-form">
                             <h3>Join the Airdrop</h3>
+                            <h3>Claim 5000 KSHR</h3>
                             <p>Enter your wallet address and connect your social media accounts to participate.</p>
                             <form action="" method="post" role="form" class="php-email-form" id="airdropForm">
                                 <div class="form-group">
@@ -133,8 +142,9 @@
                                 <th>Rank</th>
                                 <th>Wallet Address</th>
                                 <th>Telegram</th>
-                                <th>Twitter</th>
-                                <th>Points</th>
+                                <!-- <th>Twitter</th> -->
+                                <!-- <th>Points</th> -->
+                                <th>Claim</th>
                             </tr>
                         </thead>
                         <tbody id="leaderboardList">

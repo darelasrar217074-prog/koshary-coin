@@ -132,10 +132,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
             const walletAddress = document.getElementById('walletAddress').value;
             const telegramUsername = document.getElementById('telegramUsername').value;
-            const twitterUsername = document.getElementById('twitterUsername').value;
+            // const twitterUsername = document.getElementById('twitterUsername').value; // Removed Twitter field
     
             // Basic validation
-            if (!walletAddress || !telegramUsername || !twitterUsername) {
+            if (!walletAddress || !telegramUsername /* || !twitterUsername */) {
                 alert('Please fill in all fields.');
                 return;
             }
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const newParticipant = {
                 address: walletAddress,
                 telegram: telegramUsername,
-                twitter: twitterUsername,
+                // twitter: twitterUsername, // Removed Twitter field
                 points: Math.floor(Math.random() * 1000) + 500, // Assign random points for demonstration
                 registrationTime: new Date().toISOString() // Add registration time
             };
@@ -180,32 +180,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateLeaderboard() {
-        console.log('updateLeaderboard function called.'); // Debugging line
         const leaderboardList = document.getElementById('leaderboardList');
-        if (!leaderboardList) {
-            console.log('leaderboardList element not found.'); // Debugging line
-            return;
-        }
+        leaderboardList.innerHTML = ''; // Clear existing entries
 
-        // Sort participants by points (descending)
+        // Sort participants by points in descending order
         const sortedParticipants = [...airdropParticipants].sort((a, b) => b.points - a.points);
-        console.log('Sorted participants:', sortedParticipants); // Debugging line
-
-        // Clear existing entries
-        leaderboardList.innerHTML = '';
 
         // Add new entries
         sortedParticipants.forEach((participant, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td class="rank-cell">${index + 1}</td>
-                <td class="wallet-cell">${participant.address}</td>
-                <td class="telegram-cell">@${participant.telegram}</td>
-                <td class="twitter-cell">@${participant.twitter}</td>
-                <td class="points-cell">${participant.points}</td>
+                <td>${index + 1}</td>
+                <td>${participant.address}</td>
+                <td>${participant.telegram}</td>
+                <td>5000 KSHR</td>
             `;
             leaderboardList.appendChild(row);
         });
-        console.log('Leaderboard updated.'); // Debugging line
     }
 });
