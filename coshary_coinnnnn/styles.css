@@ -2,11 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --primary-color: #FFA500;
-    --secondary-color: #00BFFF;
-    --dark-bg: #1E0E3A;
-    --text-color: #FFFFFF;
-    --highlight-color: #FFA500;
+    --primary-color: #00F0FF; /* لون أزرق سماوي ساطع */
+    --secondary-color: #8A2BE2; /* لون بنفسجي مزرق */
+    --dark-bg: #0A0A1A; /* خلفية داكنة جداً */
+    --text-color: #E0E0E0; /* لون نص فاتح قليلاً */
+    --highlight-color: #00F0FF; /* لون التمييز */
+    --glow-color: rgba(0, 240, 255, 0.6); /* لون توهج للأزرار والنصوص */
 }
 
 /* VANTA.js Fog Effect Styles */
@@ -21,19 +22,19 @@
 
 /* تنسيق رابط Airdrop في القائمة */
 nav ul li a[href="airdrop.html"] {
-    color: #FFA500 !important;
+    color: var(--primary-color) !important;
     font-weight: bold;
     padding: 5px 15px;
     border-radius: 20px;
-    background-color: rgba(255, 165, 0, 0.2);
-    border: 2px solid #FFA500;
-    text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+    background-color: rgba(0, 240, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color);
     animation: pulse 2s infinite;
     transition: all 0.3s ease;
 }
 
 nav ul li a[href="airdrop.html"]:hover {
-    background-color: rgba(255, 165, 0, 0.3);
+    background-color: rgba(0, 240, 255, 0.2);
     transform: scale(1.05);
 }
 
@@ -41,9 +42,9 @@ nav ul li a[href="airdrop.html"]:hover {
 
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 165, 0, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 165, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 165, 0, 0); }
+    0% { box-shadow: 0 0 0 0 var(--glow-color); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+    100% { box-shadow: 0 0 0 0 var(--glow-color); }
 }
 * {
     margin: 0;
@@ -53,7 +54,7 @@ nav ul li a[href="airdrop.html"]:hover {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(-45deg, #1E0E3A, #2a1a47, #1E0E3A, #2a1a47);
+    background: linear-gradient(-45deg, #0A0A1A, #1A0A2A, #0A0A1A, #1A0A2A); /* تدرج لوني داكن */
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     color: var(--text-color);
@@ -87,7 +88,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background-color: rgba(30, 14, 58, 0.9);
+    background-color: rgba(10, 10, 26, 0.9); /* خلفية الهيدر أغمق قليلاً */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -107,6 +108,7 @@ header {
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--primary-color);
+    text-shadow: 0 0 8px var(--glow-color);
 }
 
 nav ul {
@@ -117,11 +119,12 @@ nav ul {
 
 nav ul li a {
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 nav ul li a:hover {
     color: var(--primary-color);
+    text-shadow: 0 0 8px var(--glow-color);
 }
 
 .buy-now-btn {
@@ -131,11 +134,13 @@ nav ul li a:hover {
     border-radius: 25px;
     font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .buy-now-btn:hover {
-    background-color: #FF8C00;
+    background-color: var(--highlight-color);
     transform: scale(1.05);
+    box-shadow: 0 0 20px var(--glow-color);
 }
 
 /* Hero Section */
@@ -151,7 +156,7 @@ nav ul li a:hover {
     font-size: 4rem;
     font-weight: 800;
     line-height: 1.2;
-    text-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+    text-shadow: 0 0 15px var(--glow-color);
 }
 
 .hero-text .highlight {
@@ -173,28 +178,33 @@ nav ul li a:hover {
     font-weight: bold;
     transition: all 0.3s ease;
     font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .pancake-btn {
     background-color: var(--primary-color);
     color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .pancake-btn:hover {
-    background-color: #FF8C00;
+    background-color: var(--highlight-color);
     transform: scale(1.05);
+    box-shadow: 0 0 20px var(--glow-color);
 }
 
 .telegram-btn {
     background-color: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .telegram-btn:hover {
     background-color: var(--primary-color);
     color: var(--dark-bg);
     transform: scale(1.05);
+    box-shadow: 0 0 20px var(--glow-color);
 }
 
 .nft-btn {
@@ -811,6 +821,32 @@ footer {
 #stars-container {
     position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: -1; /* Ensures it's behind other content */
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    background-color: var(--primary-color); /* Uses the primary color for stars */
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 5s infinite ease-in-out alternate, moveStar 1s linear infinite;
+    box-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color); /* Glowing effect */
+}
+
+@keyframes twinkle {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes moveStar {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(100vh) translateX(100vw); /* Adjust as needed for desired movement */ }
 }
 
 .airdrop-highlight {

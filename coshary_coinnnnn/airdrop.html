@@ -1,204 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Airdrop - Koshary Coin</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koshary Token Airdrop</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="stars-container"></div>
+    <div style="background:#0b0b1e; color: #fff; font-family: Arial; text-align:center; padding:40px">
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center">
-        <div class="container d-flex align-items-center justify-content-between">
+        <h1>Join the Airdrop</h1>
+        <p>Claim 5000 KSHR</p>
 
-            <div class="logo">
-                <h1><a href="index.html">Koshary Coin</a></h1>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-            </div>
+        <form id="airdropForm" style="margin:auto; max-width:400px">
+            <input type="text" id="walletInput" placeholder="Your Wallet Address" required style="width:100%; padding:10px; margin:10px 0;" />
+            <input type="text" id="telegramInput" placeholder="Your Telegram Username" required style="width:100%; padding:10px; margin:10px 0;" />
+            <button type="submit" style="padding:10px 20px; background:#00e1ff; border:none; color:#000; font-weight:bold">Submit Participation</button>
+        </form>
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto" href="index.html#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#tokenomics">Tokenomics</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#roadmap">Roadmap</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#faq">FAQ</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#contact">Contact</a></li>
-                    <li><a class="nav-link scrollto" href="#presale">Presale</a></li>
-                    <li><a class="nav-link scrollto" href="airdrop.html">Airdrop</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+        <p id="statusMessage" style="margin-top: 20px; font-weight: bold;"></p>
 
-        </div>
-    </header><!-- End Header -->
+        <h2 style="margin-top:50px;">Participants</h2>
+        <table border="1" style="margin:auto; width:80%; background:#1a1a2e; color:#fff; border-collapse:collapse;">
+            <thead>
+                <tr style="background:#27293d;">
+                    <th>#</th>
+                    <th>Wallet</th>
+                    <th>Telegram</th>
+                    <th>CLAIM</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardTable"></tbody>
+        </table>
 
-    <main id="main">
+        <!-- Firebase Scripts -->
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+            import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, where, getDocs } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
 
-        <!-- ======= Airdrop Section ======= -->
-        <section id="airdrop" class="airdrop-section section-bg">
-            <div class="container" data-aos="fade-up">
+            const firebaseConfig = {
+                apiKey: "AIzaSyDBk49GhJec3fDmO0J9OU37WxZdBCFIVSs",
+                authDomain: "kosharywallets.firebaseapp.com",
+                projectId: "kosharywallets",
+                storageBucket: "kosharywallets.firebasestorage.app",
+                messagingSenderId: "525734650204",
+                appId: "1:525734650204:web:f1fac50951a77ee997e199",
+                measurementId: "G-S6BYHPD7Y9"
+            };
 
-                <div class="section-title">
-                    <h2>Koshary Coin Airdrop</h2>
-                    <p>Participate in our Airdrop to earn free Koshary Coins!</p>
-                </div>
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-                <div class="countdown-container">
-                    <p>⏳ Free distribution ends in: <span id="countdown"></span></p>
-                </div>
- 
-                <script>
-                  // Set deadline to 60 days from now
-                  var deadline;
-                  var storedDeadline = localStorage.getItem('airdropDeadline');
+            const form = document.getElementById("airdropForm");
+            const walletInput = document.getElementById("walletInput");
+            const telegramInput = document.getElementById("telegramInput");
+            const message = document.getElementById("statusMessage");
+            const tableBody = document.getElementById("leaderboardTable");
 
-                  if (storedDeadline) {
-                    deadline = new Date(storedDeadline);
-                  } else {
-                    deadline = new Date();
-                    deadline.setDate(deadline.getDate() + 60);
-                    localStorage.setItem('airdropDeadline', deadline.toISOString());
-                  }
-                  
-                  var x = setInterval(function() {
-                    var now = new Date().getTime();
-                    var t = deadline - now;
-                    var d = Math.floor(t / (1000 * 60 * 60 * 24));
-                    var h = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var m = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-                    var s = Math.floor((t % (1000 * 60)) / 1000);
-                    document.getElementById("countdown").innerHTML = d + " days " + h + " hours "
-                    + m + " minutes " + s + " seconds ";
-                    if (t < 0) {
-                      clearInterval(x);
-                      document.getElementById("countdown").innerHTML = "Distribution ended!";
-                    }
-                  }, 1000);
-                </script>
+            // Add new participant
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const wallet = walletInput.value.trim();
+                const telegram = telegramInput.value.trim();
 
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-10">
-                        <div class="airdrop-form">
-                            <h3>Join the Airdrop</h3>
-                            <h3>Claim 5000 KSHR</h3>
-                            <p>Enter your wallet address and connect your social media accounts to participate.</p>
-                            <form action="" method="post" role="form" class="php-email-form" id="airdropForm">
-                                <div class="form-group">
-                                    <input type="text" name="wallet" class="form-control" id="walletAddress" placeholder="Your Wallet Address" required>
-                                </div>
-                                <div class="form-group mt-3">
-                                    <input type="text" name="telegram" class="form-control" id="telegramUsername" placeholder="Your Telegram Username" required>
-                                </div>
-                                <!-- Removed Twitter Username field -->
-                                <!--
-                                <div class="form-group mt-3">
-                                    <input type="text" name="twitter" class="form-control" id="twitterUsername" placeholder="Your Twitter Username" required>
-                                </div>
-                                -->
-                                <div class="social-links mt-3">
-                                    <a href="YOUR_TWITTER_PROFILE_LINK" class="twitter" target="_blank"><i class="bx bxl-twitter"></i></a>
-                                    <a href="YOUR_TELEGRAM_CHANNEL_LINK" class="telegram" target="_blank"><i class="bx bxl-telegram"></i></a>
-                                </div>
-                                <div class="text-center mt-4">
-                                    <button type="submit" id="submitParticipationBtn" class="btn btn-primary">Submit Participation</button>
-                                </div>
-                            </form>
-                            <div class="text-center mt-4">
-                                <button id="viewLeaderboardBtn" class="btn btn-primary">View Leaderboard</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                if (!wallet || !telegram) {
+                    message.textContent = "Please fill in all fields.";
+                    return;
+                }
 
-                <!-- Leaderboard Section -->كل
-                <div class="airdrop-leaderboard mt-5">
-                    <h3>Airdrop Leaderboard</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Wallet Address</th>
-                                <th>Telegram</th>
-                                <!-- <th>Twitter</th> -->
-                                <!-- <th>Points</th> -->
-                                <th>Claim</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardList">
-                            <!-- Leaderboard entries will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section><!-- End Airdrop Section -->
+                // Check for duplicate wallet address
+                const walletQuery = query(collection(db, "airdrop_participants"), where("wallet", "==", wallet));
+                const walletSnapshot = await getDocs(walletQuery);
+                if (!walletSnapshot.empty) {
+                    message.textContent = "❌ This wallet address is already registered.";
+                    return;
+                }
 
-    </main><!-- End #main -->
+                // Check for duplicate Telegram username
+                const telegramQuery = query(collection(db, "airdrop_participants"), where("telegram", "==", telegram));
+                const telegramSnapshot = await getDocs(telegramQuery);
+                if (!telegramSnapshot.empty) {
+                    message.textContent = "❌ This Telegram username is already registered.";
+                    return;
+                }
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Koshary Coin</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
-    </footer><!-- End Footer -->
+                try {
+                    await addDoc(collection(db, "airdrop_participants"), {
+                        wallet,
+                        telegram,
+                        timestamp: serverTimestamp()
+                    });
+                    message.textContent = "✅ Registered successfully!";
+                    form.reset();
+                } catch (error) {
+                    console.error(error);
+                    message.textContent = "❌ Failed to register.";
+                }
+            });
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-
-    <!-- Template Main JS File -->
+            // Load leaderboard
+            const q = query(collection(db, "airdrop_participants"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                tableBody.innerHTML = "";
+                let index = 1;
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // const date = data.timestamp?.toDate().toLocaleString() || ""; // Commented out original date line
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${index++}</td>
+                        <td>${data.wallet}</td>
+                        <td>${data.telegram}</td>
+                        <td>5000 KSHR</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+        </script>
+    </div>
     <script src="script.js"></script>
-
-    <!-- VANTA Globe Effect -->
-    <div id="vanta-bg"></div>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.globe.min.js"></script>
-    <script>
-        VANTA.GLOBE({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.0,
-            scaleMobile: 1.0,
-            color: 0xFFA500, // لون برتقالي يتناسب مع شعار كوشاري
-            backgroundColor: 0x1E0E3A, // لون خلفية داكن يتناسب مع الموقع
-            size: 1.5
-        });
-    </script>
 </body>
 </html>
