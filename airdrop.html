@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koshary Token Airdrop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="stars-container"></div>
+    <div style="background:#0b0b1e; color: #fff; font-family: Arial; text-align:center; padding:40px">
+
+        <h1>Join the Airdrop</h1>
+        <p>Claim 5000 KSHR</p>
+
+        <form id="airdropForm" style="margin:auto; max-width:400px">
+            <input type="text" id="walletInput" placeholder="Your Wallet Address" required style="width:100%; padding:10px; margin:10px 0;" />
+            <input type="text" id="telegramInput" placeholder="Your Telegram Username" required style="width:100%; padding:10px; margin:10px 0;" />
+            <button type="submit" style="padding:10px 20px; background:#00e1ff; border:none; color:#000; font-weight:bold">Submit Participation</button>
+        </form>
+
+        <p id="statusMessage" style="margin-top: 20px; font-weight: bold;"></p>
+
+        <h2 style="margin-top:50px;">Participants</h2>
+        <table border="1" style="margin:auto; width:80%; background:#1a1a2e; color:#fff; border-collapse:collapse;">
+            <thead>
+                <tr style="background:#27293d;">
+                    <th>#</th>
+                    <th>Wallet</th>
+                    <th>Telegram</th>
+                    <th>CLAIM</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardTable"></tbody>
+        </table>
+
+        <!-- Firebase Scripts -->
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+            import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, where, getDocs } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyDBk49GhJec3fDmO0J9OU37WxZdBCFIVSs",
+                authDomain: "kosharywallets.firebaseapp.com",
+                projectId: "kosharywallets",
+                storageBucket: "kosharywallets.firebasestorage.app",
+                messagingSenderId: "525734650204",
+                appId: "1:525734650204:web:f1fac50951a77ee997e199",
+                measurementId: "G-S6BYHPD7Y9"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+
+            const form = document.getElementById("airdropForm");
+            const walletInput = document.getElementById("walletInput");
+            const telegramInput = document.getElementById("telegramInput");
+            const message = document.getElementById("statusMessage");
+            const tableBody = document.getElementById("leaderboardTable");
+
+            // Add new participant
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const wallet = walletInput.value.trim();
+                const telegram = telegramInput.value.trim();
+
+                if (!wallet || !telegram) {
+                    message.textContent = "Please fill in all fields.";
+                    return;
+                }
+
+                // Check for duplicate wallet address
+                const walletQuery = query(collection(db, "airdrop_participants"), where("wallet", "==", wallet));
+                const walletSnapshot = await getDocs(walletQuery);
+                if (!walletSnapshot.empty) {
+                    message.textContent = "❌ This wallet address is already registered.";
+                    return;
+                }
+
+                // Check for duplicate Telegram username
+                const telegramQuery = query(collection(db, "airdrop_participants"), where("telegram", "==", telegram));
+                const telegramSnapshot = await getDocs(telegramQuery);
+                if (!telegramSnapshot.empty) {
+                    message.textContent = "❌ This Telegram username is already registered.";
+                    return;
+                }
+
+                try {
+                    await addDoc(collection(db, "airdrop_participants"), {
+                        wallet,
+                        telegram,
+                        timestamp: serverTimestamp()
+                    });
+                    message.textContent = "✅ Registered successfully!";
+                    form.reset();
+                } catch (error) {
+                    console.error(error);
+                    message.textContent = "❌ Failed to register.";
+                }
+            });
+
+            // Load leaderboard
+            const q = query(collection(db, "airdrop_participants"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                tableBody.innerHTML = "";
+                let index = 1;
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // const date = data.timestamp?.toDate().toLocaleString() || ""; // Commented out original date line
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${index++}</td>
+                        <td>${data.wallet}</td>
+                        <td>${data.telegram}</td>
+                        <td>5000 KSHR</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+        </script>
+        <button class="claim-btn" data-contract-address="0x15C8d532eeD7BeA4ba84945AAC4408192c7Bb94C">Claim Tokens</button>
+    </div>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
+<button class="claim-btn" data-contract-address="0x15C8d532eeD7BeA4ba84945AAC4408192c7Bb94C">Claim Tokens</button>
