@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Koshary Coin</title>
+    <script>
+        const password = prompt("أدخل كلمة المرور لعرض هذا الموقع:");
+        if (password !== "koshary2025") {
+            alert("كلمة المرور خاطئة. يتم التوجيه الآن...");
+            window.location.href = "https://google.com";
+            // أو يمكن استخدام window.close(); لإغلاف الصفحة
+        }
+    </script>
+</head>
+<body>
+    <!-- باقي محتوى الموقع -->
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koshary Coin - The First Meme Coin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="vanta-fog"></div> <!-- Changed from stars-container to vanta-fog -->
+
+    <header class="header">
+        <a href="#" class="logo"><img src="images/logo.png" alt="Koshary Coin Logo"></a>
+        <nav class="navbar">
+            <div class="buy-now-btn"><a href="#home">Home</a></div>
+            <div class="buy-now-btn"><a href="nft-upgrade.html">Upgrade NFT</a></div>
+            <div class="buy-now-btn"><a href="https://t.me/KosharyCoin" target="_blank">Join our Telegram</a></div>
+        </nav>
+        <div class="mobile-menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h1>NFT COLLECTIONS & SHOWCASE</h1>
+            <p>Discover, collect, and showcase extraordinary NFTs</p>
+            <a href="collections.html#featured-collection" class="explore-btn">NFT COLLECTIONS & SHOWCASE</a>
+        </div>
+        <div class="nft-card-placeholder">
+            <!-- Placeholder for NFT card image or content -->
+            <img src="images/koshary-mascot.png" alt="NFT Placeholder">
+            <p class="nft-card-text">KOSHARY COIN</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-text reveal-on-scroll">
+            <h2>WHAT IS KOSHARY COIN?</h2>
+            <p>Koshary Coin is a light-hearted, meme powered token inspired by the most iconic dish - Koshary! It's fun, it's flavorful, and it's ready to take over the blockchain world!</p>
+        </div>
+        <div class="about-image reveal-on-scroll">
+            <img src="images/koshary-mascot-small.png" alt="Koshary Coin Mascot">
+        </div>
+    </section>
+
+    <section class="disclaimer reveal-on-scroll">
+        <section class="risk-warning-section">
+            <div class="container">
+                <h2>Risk Warning</h2>
+                <p>Investing in cryptocurrencies involves a high degree of risk. The cryptocurrency market is highly volatile and subject to rapid price fluctuations. You could lose all or a substantial portion of your investment. The value of cryptocurrencies can be affected by various factors, including market sentiment, regulatory changes, technological advancements, and economic conditions. Past performance is not indicative of future results. Before making any investment decisions, you should carefully consider your investment objectives, level of experience, and risk appetite. It is advisable to consult with a qualified financial advisor if you have any doubts. Do not invest more than you can afford to lose. This website and its content are for informational purposes only and do not constitute financial advice or a solicitation to invest in any cryptocurrency. By using this website, you acknowledge and agree to these risks.</p>
+            </div>
+        </section>
+    </section>
+    <footer class="disclaimer-footer">
+        <div class="container">
+            <p>Disclaimer: Koshary Coin is a meme token with no intrinsic value or expectation of financial return. This is not an investment advice. Cryptocurrencies are highly volatile - only invest what you can afford to lose.</p>
+        </div>
+    </footer>
+
+    <!-- Vanta.js and FOG effect scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+    <script>
+        VANTA.FOG({
+            el: "#vanta-fog",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            highlightColor: 0x00F0FF, // Using --primary-color
+            midtoneColor: 0x8A2BE2,   // Using --secondary-color
+            lowlightColor: 0x0A0A1A,  // Using --dark-bg
+            baseColor: 0x0A0A1A,      // Using --dark-bg
+            blurFactor: 0.90,
+            speed: 1.50,
+            zoom: 0.50
+        })
+    </script>
+</body>
+</html>
+<button id="connectBtn">اتصال بالمحفظة</button>
+
+<script>
+  document.getElementById("connectBtn").addEventListener("click", async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        // طلب تبديل الشبكة إلى BSC إذا لزم الأمر
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: "0x38", // 56 بالعدد العشري لـ BSC
+            chainName: "Binance Smart Chain",
+            nativeCurrency: {
+              name: "BNB",
+              symbol: "BNB",
+              decimals: 18
+            },
+            rpcUrls: ["https://bsc-dataseed.binance.org/"],
+            blockExplorerUrls: ["https://bscscan.com"]
+          }]
+        });
+        
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        
+        console.log("الحساب المتصل:", accounts[0]);
+        alert("تم الاتصال: " + accounts[0].substring(0, 6) + "...");
+        
+        // تحديث واجهة المستخدم لإظهار حالة الاتصال
+        document.getElementById("connectBtn").textContent = "محفظة متصلة";
+        document.getElementById("connectBtn").style.backgroundColor = "#4CAF50";
+        
+      } catch (err) {
+        if (err.code === 4001) {
+          console.error("تم رفض الاتصال من قبل المستخدم", err);
+          alert("تم رفض الاتصال");
+        } else {
+          console.error("خطأ في الاتصال:", err);
+          alert("حدث خطأ: " + err.message);
+        }
+      }
+    } else {
+      alert("يجب تثبيت MetaMask أولاً");
+      window.open("https://metamask.io/download.html", "_blank");
+    }
+  });
+</script>

@@ -1,0 +1,19 @@
+/* ... existing code ... */
+
+.character-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adjust as needed for spacing between images */
+    margin-top: 10px;
+}
+
+.character-selection img {
+    width: 60px; /* تم تقليل الحجم */
+    height: 60px; /* تم تقليل الحجم */
+    object-fit: cover;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
+/* ... existing code ... */
