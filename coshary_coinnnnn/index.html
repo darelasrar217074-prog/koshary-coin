@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <title>Koshary Coin</title>
+    <script>
+        const password = prompt("أدخل كلمة المرور لعرض هذا الموقع:");
+        if (password !== "koshary2025") {
+            alert("كلمة المرور خاطئة. يتم التوجيه الآن...");
+            window.location.href = "https://google.com";
+            // أو يمكن استخدام window.close(); لإغلاف الصفحة
+        }
+    </script>
+</head>
+<body>
+    <!-- باقي محتوى الموقع -->
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,30 +25,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div id="stars-container"></div>
+    <div id="vanta-fog"></div> <!-- Changed from stars-container to vanta-fog -->
 
-    <header>
-        <div class="logo">
-            <img src="images/logo.png" alt="Koshary Coin Logo">
-            <span>KOSHARY COIN</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="https://t.me/koshary_coin" target="_blank">Telegram</a></li>
-            </ul>
+    <header class="header">
+        <a href="#" class="logo"><img src="images/logo.png" alt="Koshary Coin Logo"></a>
+        <nav class="navbar">
+            <div class="buy-now-btn"><a href="#home">Home</a></div>
+            <div class="buy-now-btn"><a href="nft-upgrade.html">Upgrade NFT</a></div>
+            <div class="buy-now-btn"><a href="https://t.me/KosharyCoin" target="_blank">Join our Telegram</a></div>
         </nav>
+        <div class="mobile-menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-text">
-            <h1>THE FIRST<br>MEME<br>COIN THAT<br><span class="highlight">TASTES LIKE<br>VICTORY!</span></h1>
-            <div class="hero-buttons">
-                <a href="https://t.me/koshary_coin" class="telegram-btn" target="_blank">Join our Telegram</a>
-            </div>
+            <h1>NFT COLLECTIONS & SHOWCASE</h1>
+            <p>Discover, collect, and showcase extraordinary NFTs</p>
+            <a href="collections.html#featured-collection" class="explore-btn">NFT COLLECTIONS & SHOWCASE</a>
         </div>
-        <div class="hero-image">
-            <img src="images/koshary-mascot.png" alt="Koshary Coin Mascot">
+        <div class="nft-card-placeholder">
+            <!-- Placeholder for NFT card image or content -->
+            <img src="images/koshary-mascot.png" alt="NFT Placeholder">
+            <p class="nft-card-text">KOSHARY COIN</p>
         </div>
     </section>
 
@@ -53,5 +70,31 @@
             </div>
         </section>
     </section>
+    <footer class="disclaimer-footer">
+        <div class="container">
+            <p>Disclaimer: Koshary Coin is a meme token with no intrinsic value or expectation of financial return. This is not an investment advice. Cryptocurrencies are highly volatile - only invest what you can afford to lose.</p>
+        </div>
+    </footer>
+
+    <!-- Vanta.js and FOG effect scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+    <script>
+        VANTA.FOG({
+            el: "#vanta-fog",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            highlightColor: 0x00F0FF, // Using --primary-color
+            midtoneColor: 0x8A2BE2,   // Using --secondary-color
+            lowlightColor: 0x0A0A1A,  // Using --dark-bg
+            baseColor: 0x0A0A1A,      // Using --dark-bg
+            blurFactor: 0.90,
+            speed: 1.50,
+            zoom: 0.50
+        })
+    </script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+{
+  "name": "Glitch Paw #11",
+  "description": "A cute glitchy paw NFT from KosharyCoin world!",
+  "image": "ipfs://QmUS7mJ1opXAVbLd7SAGuWotMVLD7NDvzPG3i1CCkb4oHN",
+  "attributes": [
+    {
+      "trait_type": "Generation",
+      "value": "1"
+    },
+    {
+      "trait_type": "Cuteness",
+      "value": "Super"
+    }
+  ]
+}

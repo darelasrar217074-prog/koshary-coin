@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام ترقية NFT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+
+        .connect-wallet-btn {
+            background-color: #00ffff;
+            color: #0d0d0d;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        .connect-wallet-btn:hover {
+            background-color: #bb00ff;
+            box-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: calc(100vh - 70px); /* Adjust for header height */
+        }
+        
+        .main-content {
+            flex: 3;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #00ffff;
+            box-sizing: border-box;
+        }
+        
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #bb00ff;
+            object-fit: cover;
+            box-shadow: 0 0 15px #bb00ff, 0 0 30px #bb00ff;
+        }
+        
+        .level-text {
+            font-size: 1.8rem;
+            margin-top: 1rem;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+        }
+
+        .progress-bar {
+            width: 80%;
+            max-width: 400px;
+            height: 25px;
+            background-color: #333;
+            border-radius: 12px;
+            margin-top: 1rem;
+            overflow: hidden;
+            border: 1px solid #bb00ff;
+            box-shadow: 0 0 8px #bb00ff;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #bb00ff);
+            width: 30%; /* Example progress */
+            border-radius: 12px 0 0 12px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .btn {
+            padding: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-stake {
+            background-color: #00ffff;
+            color: #0d0d0d;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+        
+        .btn-stake:hover {
+            background-color: #bb00ff;
+            box-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff;
+        }
+        
+        .btn-upgrade {
+            background-color: #bb00ff;
+            color: white;
+            box-shadow: 0 0 10px #bb00ff, 0 0 20px #bb00ff;
+        }
+        
+        .btn-upgrade:hover:not(:disabled) {
+            background-color: #00ffff;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        .btn-upgrade:disabled {
+            background-color: #555;
+            color: #aaa;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .sidebar {
+            flex: 1;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        
+        .leaderboard {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        .leaderboard h3 {
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        .leaderboard ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .leaderboard li {
+            background-color: #1a1a1a;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+            border-left: 3px solid #bb00ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .leaderboard li span {
+            color: #eee;
+        }
+
+        .leaderboard li .player-name {
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .leaderboard li .player-level, .leaderboard li .player-tokens {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .main-content {
+                border-right: none;
+                border-bottom: 1px solid #00ffff;
+                padding-bottom: 3rem;
+            }
+            .sidebar {
+                width: 100%;
+                padding-top: 3rem;
+            }
+            .progress-bar, .buttons {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content, .sidebar {
+                padding: 1rem;
+            }
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            .level-text {
+                font-size: 1.5rem;
+            }
+            .btn {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            .leaderboard li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button class="connect-wallet-btn">Connect Wallet</button>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <div class="avatar-section">
+                <img src="nft-avatar.png" alt="NFT Avatar" class="avatar">
+                <div class="level-text">المستوى: 1</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 30%;"></div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-stake">Stake Tokens</button>
+                <button class="btn btn-upgrade" disabled>Upgrade</button>
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <ul>
+                    <li>
+                        <span class="player-name">PlayerOne</span>
+                        <span class="player-level">Level: 5</span>
+                        <span class="player-tokens">Tokens: 1000</span>
+                    </li>
+                    <li>
+                        <span class="player-name">CyberKnight</span>
+                        <span class="player-level">Level: 4</span>
+                        <span class="player-tokens">Tokens: 850</span>
+                    </li>
+                    <li>
+                        <span class="player-name">NeonNinja</span>
+                        <span class="player-level">Level: 3</span>
+                        <span class="player-tokens">Tokens: 600</span>
+                    </li>
+                    <li>
+                        <span class="player-name">DataGhost</span>
+                        <span class="player-level">Level: 3</span>
+                        <span class="player-tokens">Tokens: 550</span>
+                    </li>
+                    <li>
+                        <span class="player-name">PixelPioneer</span>
+                        <span class="player-level">Level: 2</span>
+                        <span class="player-tokens">Tokens: 400</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

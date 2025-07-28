@@ -7,7 +7,7 @@
     --dark-bg: #0A0A1A; /* خلفية داكنة جداً */
     --text-color: #E0E0E0; /* لون نص فاتح قليلاً */
     --highlight-color: #00F0FF; /* لون التمييز */
-    --glow-color: rgba(0, 240, 255, 0.6); /* لون توهج للأزرار والنصوص */
+    --glow-color: rgba(0, 240, 255, 0.3); /* تم تخفيف شدة التوهج */
 }
 
 /* VANTA.js Fog Effect Styles */
@@ -26,9 +26,9 @@ nav ul li a[href="airdrop.html"] {
     font-weight: bold;
     padding: 5px 15px;
     border-radius: 20px;
-    background-color: rgba(0, 240, 255, 0.1);
+    background-color: rgba(0, 240, 255, 0.05); /* تم تخفيف شدة التوهج */
     border: 2px solid var(--primary-color);
-    text-shadow: 0 0 10px var(--glow-color);
+    text-shadow: 0 0 5px var(--glow-color); /* تم تخفيف شدة التوهج */
     animation: pulse 2s infinite;
     transition: all 0.3s ease;
 }
@@ -43,7 +43,7 @@ nav ul li a[href="airdrop.html"]:hover {
 
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 var(--glow-color); }
-    70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+    70% { box-shadow: 0 0 0 5px rgba(0, 240, 255, 0); } /* تم تخفيف شدة التوهج */
     100% { box-shadow: 0 0 0 0 var(--glow-color); }
 }
 * {
@@ -100,7 +100,7 @@ header {
 }
 
 .logo img {
-    height: 40px;
+    height: 30px; /* Reduced height for the logo */
     margin-right: 10px;
 }
 
@@ -108,7 +108,7 @@ header {
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--primary-color);
-    text-shadow: 0 0 8px var(--glow-color);
+    text-shadow: 0 0 5px var(--glow-color); /* تم تخفيف شدة التوهج */
 }
 
 nav ul {
@@ -124,32 +124,100 @@ nav ul li a {
 
 nav ul li a:hover {
     color: var(--primary-color);
-    text-shadow: 0 0 8px var(--glow-color);
+    text-shadow: 0 0 5px var(--glow-color); /* تم تخفيف شدة التوهج */
 }
 
 .buy-now-btn {
     background-color: var(--primary-color);
     color: var(--dark-bg);
-    padding: 0.5rem 1.5rem;
+    padding: 0.3rem 1rem; /* تصغير الحشو الداخلي */
     border-radius: 25px;
     font-weight: 600;
+    font-size: 0.9rem; /* تصغير حجم الخط */
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px var(--glow-color);
+    box-shadow: 0 0 10px var(--glow-color); /* تم تخفيف شدة التوهج */
+    display: inline-block; /* لجعل العناصر تظهر جنبًا إلى جنب */
+    white-space: nowrap; /* لمنع النص من الالتفاف */
+    /* قد تحتاج لإضافة margin-right لتوفير مسافة بين الأزرار */
+    margin-right: 10px;
+}
+
+.buy-now-btn a {
+    padding: 0.5rem 1.5rem; /* لضمان أن الروابط داخل الـ div تأخذ نفس الـ padding */
+    display: block; /* لجعل الروابط تملأ الـ div بالكامل */
 }
 
 .buy-now-btn:hover {
     background-color: var(--highlight-color);
     transform: scale(1.05);
-    box-shadow: 0 0 20px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color); /* تم تخفيف شدة التوهج */
 }
 
 /* Hero Section */
 .hero {
     display: flex;
+    flex-direction: row; /* Ensure side-by-side on larger screens */
     align-items: center;
     justify-content: space-between;
     padding: 4rem 5%;
     min-height: 80vh;
+    text-align: center; /* Default for smaller screens */
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 50%; /* Adjust as needed for text content */
+    text-align: left;
+    padding-right: 20px; /* Add some spacing between text and image */
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.explore-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #8a2be2; /* A purple shade from the image */
+    color: var(--dark-bg);
+    border-radius: 25px; /* More rounded corners */
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #8a2be2; /* تم تخفيف شدة التوهج */
+    text-decoration: none; /* Ensure it looks like a button */
+}
+
+.explore-btn:hover {
+    background-color: #9932cc; /* A slightly darker purple for hover */
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #9932cc; /* تم تخفيف شدة التوهج */
+}
+
+.nft-card-placeholder {
+    flex: 1;
+    max-width: 40%; /* Adjust as needed for image content */
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically */
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px; /* Add some spacing between text and image */
+}
+
+.nft-card-placeholder img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px; /* Optional: add some rounded corners */
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5); /* Optional: add a glow effect */
+}
+
+.nft-card-text {
+    font-weight: bold;
+    color: var(--primary-color); /* Use a color that stands out, e.g., from your variables */
+    margin-top: 10px;
+    text-align: center;
 }
 
 .hero-text h1 {
@@ -669,16 +737,27 @@ nav ul li a:hover {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.7;
-    font-size: 1rem;
     color: var(--text-color); /* لون النص العادي */
 }
 
-/* Footer Styles */
-footer {
-    padding: 2rem 5%;
+.nft-card-text, .about-text p, .disclaimer p {
+    font-size: 0.9rem; /* تصغير حجم الخط للنصوص */
+    padding: 0.8rem; /* تصغير الحشو الداخلي */
+}
+
+.disclaimer-footer {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    padding: 20px 0;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    border-top: 1px solid var(--primary-color);
+}
+
+.disclaimer-footer p {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 @media (max-width: 1024px) {
@@ -732,8 +811,31 @@ footer {
         gap: 1rem;
     }
     
+    .hero {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        text-align: center;
+    }
+
+    .hero-text,
+    .nft-card-placeholder {
+        max-width: 100%; /* Full width on smaller screens */
+        padding: 0;
+    }
+
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .explore-btn {
+        padding: 12px 25px;
+    }
+
+    .nft-card-placeholder img {
+        max-width: 80%; /* Adjust image size on smaller screens */
     }
     
     .roadmap-item {
@@ -1284,4 +1386,173 @@ footer {
     font-weight: bold !important;
     color: #FFD700 !important; /* لون ذهبي للترتيب */
     font-size: 1.2rem !important;
+}
+
+/* Collections Page Styles */
+
+.collections-section {
+    padding: 4rem 5%;
+    text-align: center;
+    background-color: var(--background-color);
+}
+
+.collections-section h2 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.nft-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the two main action boxes */
+    margin-bottom: 3rem;
+}
+
+.action-box {
+    background-color: transparent; /* Changed to transparent */
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 15px 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+.action-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px var(--glow-color);
+}
+
+.action-btn {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: block; /* Make the link fill the box */
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* This will create 4 columns or more depending on screen size */
+    gap: 1.5rem;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nft-item {
+    background-color: #000000; /* لون الخلفية أسود */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.nft-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+}
+
+.nft-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    max-width: 180px; /* Control image width here */
+    max-height: 180px; /* Control image height here */
+    object-fit: cover;
+}
+
+.nft-item h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.nft-buttons {
+    display: flex;
+    gap: 10px; /* Space between Mint and Claim buttons */
+    margin-top: 1rem;
+}
+
+.nft-action-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    text-decoration: none;
+    background-color: transparent; /* Ensure transparent background */
+    border: 2px solid; /* Keep border */
+}
+
+.mint-btn {
+    background-color: transparent; /* Ensure transparent background */
+    color: #00CC00; /* لون النص لزر Mint (أخضر مخفف) */
+    border-color: #00CC00; /* لون الإطار لزر Mint (أخضر مخفف) */
+}
+
+.mint-btn:hover {
+    background-color: #00CC00; /* لون الخلفية عند التمرير (أخضر مخفف) */
+    color: #000000; /* لون النص عند التمرير (أسود) */
+}
+
+.claim-btn {
+    background-color: transparent; /* Ensure transparent background */
+    color: #800080; /* لون النص لزر Claim (بنفسجي) */
+    border-color: #800080; /* لون الإطار لزر Claim (بنفسجي) */
+}
+
+.claim-btn:hover {
+    background-color: #800080; /* لون الخلفية عند التمرير (بنفسجي) */
+    color: #000000; /* لون النص عند التمرير (أسود) */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .nft-item img {
+        height: 200px;
+    }
+
+    .nft-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-box {
+        max-width: 80%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nft-item img {
+        height: 180px;
+    }
+
+    .nft-item h3 {
+        font-size: 1.2em;
+    }
+
+    .nft-action-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
+
+.nft-item h3 {
+    color: #FFD700; /* لون ذهبي لامع */
+    font-size: 1.2em; /* يمكنك تعديل حجم الخط حسب الحاجة */
+    font-weight: bold;
 }

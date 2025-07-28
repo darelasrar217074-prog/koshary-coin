@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "ethers": "^5.8.0"
+  }
+}
